@@ -17,3 +17,21 @@
 const Route = use('Route')
 
 Route.on('/').render('welcome')
+
+/**
+* register
+*/
+Route.get('register', 'Auth/RegisterController.index').as('register.index').middleware(['RedirectIfAuthenticated'])
+Route.post('register', 'Auth/RegisterController.store').as('register.store').middleware(['RedirectIfAuthenticated'])
+
+/**
+* login
+*/
+Route.get('login', 'Auth/LoginController.index').as('login.index').middleware(['RedirectIfAuthenticated'])
+Route.post('login', 'Auth/LoginController.check').as('login.check').middleware(['RedirectIfAuthenticated'])
+Route.get('logout', 'Auth/LoginController.logout').as('logout').middleware(['Authenticate'])
+
+/**
+* dashboard
+*/
+Route.get('dashboard', 'DashboardController.index').as('dashboard').middleware(['Authenticate'])
